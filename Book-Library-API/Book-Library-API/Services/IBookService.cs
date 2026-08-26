@@ -5,4 +5,5 @@ namespace Book_Library_API.Services;
 public interface IBookService
 {
     List<Book> GetBooks();
+    Book? GetBookById(int id);
 }

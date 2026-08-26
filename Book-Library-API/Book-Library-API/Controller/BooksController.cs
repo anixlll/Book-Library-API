@@ -20,4 +20,17 @@ public class BooksController : ControllerBase
     {
         return _bookService.GetBooks();
     }
+    
+    [HttpGet("{id}")]
+    public ActionResult<Book> GetBookById(int id)
+    {
+        var book = _bookService.GetBookById(id);
+
+        if (book == null)
+        {
+            return NotFound();
+        }
+
+        return book;
+    }
 }

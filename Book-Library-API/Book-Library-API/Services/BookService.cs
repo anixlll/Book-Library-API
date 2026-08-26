@@ -31,4 +31,9 @@ public class BookService : IBookService
     {
         return _books.ToList(); // Kopie der Liste
     }
+
+    public Book? GetBookById(int id)
+    {
+        return _books.FirstOrDefault(b => b.Id == id);
+    }
 }
