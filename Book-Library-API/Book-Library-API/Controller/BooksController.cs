@@ -64,6 +64,6 @@ public class BooksController : ControllerBase
             return NotFound();
         }
 
-        return deletedBook;
+        return NoContent();
     }
 }
