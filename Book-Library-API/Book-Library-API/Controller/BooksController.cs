@@ -38,7 +38,7 @@ public class BooksController : ControllerBase
     public ActionResult<Book> AddBook(Book book)
     {
         var newBook = _bookService.AddBook(book);
-        return newBook;
+        return CreatedAtAction(nameof(GetBookById), new { id = newBook.Id }, newBook);
     }
 
     [HttpPut("{id}")]
