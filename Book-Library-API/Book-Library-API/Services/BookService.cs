@@ -44,4 +44,21 @@ public class BookService : IBookService
         _books.Add(book);
         return book;
     }
+
+    public Book? UpdateBook(int id, Book book)
+    {
+        var oldBook = GetBookById(id);
+
+        if (oldBook == null)
+        {
+            return null;
+        }
+
+        oldBook.Title = book.Title;
+        oldBook.Author = book.Author;
+        oldBook.Pages = book.Pages;
+        oldBook.Year = book.Year;
+
+        return oldBook;
+    }
 }

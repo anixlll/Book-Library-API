@@ -7,4 +7,5 @@ public interface IBookService
     List<Book> GetBooks();
     Book? GetBookById(int id);
     Book AddBook(Book book);
+    Book UpdateBook(int id, Book book);
 }
