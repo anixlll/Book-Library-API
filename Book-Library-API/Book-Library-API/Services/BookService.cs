@@ -61,4 +61,18 @@ public class BookService : IBookService
 
         return oldBook;
     }
+
+    public Book? DeleteBook(int id)
+    {
+        var book = GetBookById(id);
+
+        if (book == null)
+        {
+            return null;
+        }
+
+        _books.Remove(book);
+
+        return book;
+    }
 }

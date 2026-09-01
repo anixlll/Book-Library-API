@@ -9,3 +9,10 @@ Content-Type: application/json
   "pages": 796,
   "year": 1879
 }
+
+###
+
+DELETE {{Book_Library_API_HostAddress}}/api/books/2
+Content-Type: application/json
+
+###
