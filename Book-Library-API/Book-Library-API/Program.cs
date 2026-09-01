@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 
-builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddSingleton<IBookService, BookService>();
 
 var app = builder.Build();
 

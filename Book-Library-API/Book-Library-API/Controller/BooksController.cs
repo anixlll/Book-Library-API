@@ -33,4 +33,11 @@ public class BooksController : ControllerBase
 
         return book;
     }
+
+    [HttpPost]
+    public ActionResult<Book> AddBook(Book book)
+    {
+        var newBook = _bookService.AddBook(book);
+        return newBook;
+    }
 }

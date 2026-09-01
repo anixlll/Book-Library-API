@@ -36,4 +36,12 @@ public class BookService : IBookService
     {
         return _books.FirstOrDefault(b => b.Id == id);
     }
+
+    public Book AddBook(Book book)
+    {
+        book.Id = _books.Count > 0 ? _books.Max(b => b.Id) + 1 : 1;
+
+        _books.Add(book);
+        return book;
+    }
 }
