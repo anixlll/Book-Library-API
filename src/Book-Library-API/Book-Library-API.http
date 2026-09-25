@@ -16,3 +16,20 @@ DELETE {{Book_Library_API_HostAddress}}/api/books/2
 Content-Type: application/json
 
 ###
+
+PUT {{Book_Library_API_HostAddress}}/api/books/3
+Content-Type: application/json
+
+{
+  "title": "The ov",
+  "author": "ostoevsky",
+  "pages": 76,
+  "year": 1872
+}
+
+###
+
+GET {{Book_Library_API_HostAddress}}/api/books/3
+Content-Type: application/json
+
+###

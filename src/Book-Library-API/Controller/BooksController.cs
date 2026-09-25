@@ -51,8 +51,16 @@ public class BooksController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Book> UpdateBook(int id, Book book)
+    public ActionResult<Book> UpdateBook(int id, UpdateBookDto dto)
     {
+        var book = new Book
+        {
+            Title = dto.Title,
+            Author = dto.Author,
+            Pages = dto.Pages,
+            Year = dto.Year
+        };
+        
         var updatedBook = _bookService.UpdateBook(id, book);
 
         if (updatedBook == null)
