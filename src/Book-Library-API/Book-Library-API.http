@@ -29,7 +29,7 @@ Content-Type: application/json
 
 ###
 
-GET {{Book_Library_API_HostAddress}}/api/books/3
+GET {{Book_Library_API_HostAddress}}/api/books/1
 Content-Type: application/json
 
 ###

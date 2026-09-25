@@ -17,13 +17,22 @@ public class BooksController : ControllerBase
     }
 
     [HttpGet]
-    public List<Book> GetBooks()
+    public List<BookDto> GetBooks()
     {
-        return _bookService.GetBooks();
+        var books = _bookService.GetBooks();
+
+        return books.Select(book => new BookDto
+        {
+            Id = book.Id,
+            Title = book.Title,
+            Author = book.Author,
+            Pages = book.Pages,
+            Year = book.Year
+        }).ToList();
     }
 
     [HttpGet("{id}")]
-    public ActionResult<Book> GetBookById(int id)
+    public ActionResult<BookDto> GetBookById(int id)
     {
         var book = _bookService.GetBookById(id);
 
@@ -32,7 +41,16 @@ public class BooksController : ControllerBase
             return NotFound();
         }
 
-        return book;
+        var bookDto = new BookDto
+        {
+            Id = book.Id,
+            Title = book.Title,
+            Author = book.Author,
+            Pages = book.Pages,
+            Year = book.Year
+        };
+
+        return bookDto;
     }
 
     [HttpPost]
