@@ -1,6 +1,7 @@
 ﻿using Book_Library_API.Models;
 using Microsoft.AspNetCore.Mvc;
 using Book_Library_API.Services;
+using Book_Library_API.DTOs;
 
 namespace Book_Library_API.Controller;
 
@@ -35,8 +36,16 @@ public class BooksController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Book> AddBook(Book book)
+    public ActionResult<Book> AddBook(CreateBookDto dto)
     {
+        var book = new Book
+        {
+            Title = dto.Title,
+            Author = dto.Author,
+            Pages = dto.Pages,
+            Year = dto.Year
+        };
+        
         var newBook = _bookService.AddBook(book);
         return CreatedAtAction(nameof(GetBookById), new { id = newBook.Id }, newBook);
     }
