@@ -90,11 +90,11 @@ public class BooksController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public ActionResult<Book> DeleteBook(int id)
+    public IActionResult DeleteBook(int id)
     {
-        var deletedBook = _bookService.DeleteBook(id);
+        var deleted = _bookService.DeleteBook(id);
 
-        if (deletedBook == null)
+        if (!deleted)
         {
             return NotFound();
         }

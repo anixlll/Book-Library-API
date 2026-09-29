@@ -62,17 +62,17 @@ public class BookService : IBookService
         return oldBook;
     }
 
-    public Book? DeleteBook(int id)
+    public bool DeleteBook(int id)
     {
         var book = GetBookById(id);
 
         if (book == null)
         {
-            return null;
+            return false;
         }
 
         _books.Remove(book);
 
-        return book;
+        return true;
     }
 }
