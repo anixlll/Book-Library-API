@@ -1,47 +1,33 @@
-﻿using Book_Library_API.Models;
+﻿using Book_Library_API.Data;
+using Book_Library_API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Book_Library_API.Services;
 
 public class BookService : IBookService
 {
-    private readonly List<Book> _books = new();
+    private readonly AppDbContext _context;
 
-    public BookService()
+    public BookService(AppDbContext context)
     {
-        _books.Add(new Book
-        {
-            Id = 1,
-            Title = "The Last Days of Socrates",
-            Author = "Plato",
-            Pages = 256,
-            Year = 1954
-        });
-        
-        _books.Add(new Book
-        {
-            Id = 2,
-            Title = "Metamorphosis",
-            Author = "Franz Kafka",
-            Pages = 70,
-            Year = 1915
-        });
+        _context = context;
     }
-    
+
     public List<Book> GetBooks()
     {
-        return _books.ToList(); // Kopie der Liste
+        return _context.Books.ToList();
     }
 
     public Book? GetBookById(int id)
     {
-        return _books.FirstOrDefault(b => b.Id == id);
+        return _context.Books.FirstOrDefault(b => b.Id == id);
     }
 
     public Book AddBook(Book book)
     {
-        book.Id = _books.Count > 0 ? _books.Max(b => b.Id) + 1 : 1;
+        _context.Books.Add(book);
+        _context.SaveChanges();
 
-        _books.Add(book);
         return book;
     }
 
@@ -59,6 +45,8 @@ public class BookService : IBookService
         oldBook.Pages = book.Pages;
         oldBook.Year = book.Year;
 
+        _context.SaveChanges();
+
         return oldBook;
     }
 
@@ -71,7 +59,8 @@ public class BookService : IBookService
             return false;
         }
 
-        _books.Remove(book);
+        _context.Books.Remove(book);
+        _context.SaveChanges();
 
         return true;
     }
