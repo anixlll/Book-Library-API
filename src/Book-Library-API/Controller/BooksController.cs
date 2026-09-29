@@ -54,7 +54,7 @@ public class BooksController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<Book>> AddBook(CreateBookDto dto)
+    public async Task<ActionResult<BookDto>> AddBook(CreateBookDto dto)
     {
         var book = new Book
         {
@@ -65,11 +65,21 @@ public class BooksController : ControllerBase
         };
         
         var newBook = await _bookService.AddBook(book);
-        return CreatedAtAction(nameof(GetBookById), new { id = newBook.Id }, newBook);
+        
+        var bookDto = new BookDto
+        {
+            Id = newBook.Id,
+            Title = newBook.Title,
+            Author = newBook.Author,
+            Pages = newBook.Pages,
+            Year = newBook.Year
+        };
+        
+        return CreatedAtAction(nameof(GetBookById), new { id = newBook.Id }, bookDto);
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<Book>> UpdateBook(int id, UpdateBookDto dto)
+    public async Task<ActionResult<BookDto>> UpdateBook(int id, UpdateBookDto dto)
     {
         var book = new Book
         {
@@ -86,7 +96,16 @@ public class BooksController : ControllerBase
             return NotFound();
         }
 
-        return updatedBook;
+        var bookDto = new BookDto
+        {
+            Id = updatedBook.Id,
+            Title = updatedBook.Title,
+            Author = updatedBook.Author,
+            Pages = updatedBook.Pages,
+            Year = updatedBook.Year
+        };
+
+        return bookDto;
     }
 
     [HttpDelete("{id}")]
