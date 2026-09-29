@@ -17,9 +17,9 @@ public class BooksController : ControllerBase
     }
 
     [HttpGet]
-    public List<BookDto> GetBooks()
+    public async Task<List<BookDto>> GetBooks()
     {
-        var books = _bookService.GetBooks();
+        var books = await _bookService.GetBooks();
 
         return books.Select(book => new BookDto
         {
@@ -32,9 +32,9 @@ public class BooksController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public ActionResult<BookDto> GetBookById(int id)
+    public async Task<ActionResult<BookDto>> GetBookById(int id)
     {
-        var book = _bookService.GetBookById(id);
+        var book = await _bookService.GetBookById(id);
 
         if (book == null)
         {
@@ -54,7 +54,7 @@ public class BooksController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<Book> AddBook(CreateBookDto dto)
+    public async Task<ActionResult<Book>> AddBook(CreateBookDto dto)
     {
         var book = new Book
         {
@@ -64,12 +64,12 @@ public class BooksController : ControllerBase
             Year = dto.Year
         };
         
-        var newBook = _bookService.AddBook(book);
+        var newBook = await _bookService.AddBook(book);
         return CreatedAtAction(nameof(GetBookById), new { id = newBook.Id }, newBook);
     }
 
     [HttpPut("{id}")]
-    public ActionResult<Book> UpdateBook(int id, UpdateBookDto dto)
+    public async Task<ActionResult<Book>> UpdateBook(int id, UpdateBookDto dto)
     {
         var book = new Book
         {
@@ -79,7 +79,7 @@ public class BooksController : ControllerBase
             Year = dto.Year
         };
         
-        var updatedBook = _bookService.UpdateBook(id, book);
+        var updatedBook = await _bookService.UpdateBook(id, book);
 
         if (updatedBook == null)
         {
@@ -90,9 +90,9 @@ public class BooksController : ControllerBase
     }
 
     [HttpDelete("{id}")]
-    public IActionResult DeleteBook(int id)
+    public async Task<IActionResult> DeleteBook(int id)
     {
-        var deleted = _bookService.DeleteBook(id);
+        var deleted = await _bookService.DeleteBook(id);
 
         if (!deleted)
         {

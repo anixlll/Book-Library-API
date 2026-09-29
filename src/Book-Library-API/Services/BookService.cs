@@ -13,27 +13,27 @@ public class BookService : IBookService
         _context = context;
     }
 
-    public List<Book> GetBooks()
+    public async Task<List<Book>> GetBooks()
     {
-        return _context.Books.ToList();
+        return await _context.Books.ToListAsync();
     }
 
-    public Book? GetBookById(int id)
+    public async Task<Book?> GetBookById(int id)
     {
-        return _context.Books.FirstOrDefault(b => b.Id == id);
+        return await _context.Books.FirstOrDefaultAsync(b => b.Id == id);
     }
 
-    public Book AddBook(Book book)
+    public async Task<Book> AddBook(Book book)
     {
         _context.Books.Add(book);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         return book;
     }
 
-    public Book? UpdateBook(int id, Book book)
+    public async Task<Book?> UpdateBook(int id, Book book)
     {
-        var oldBook = GetBookById(id);
+        var oldBook = await GetBookById(id);
 
         if (oldBook == null)
         {
@@ -45,14 +45,14 @@ public class BookService : IBookService
         oldBook.Pages = book.Pages;
         oldBook.Year = book.Year;
 
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         return oldBook;
     }
 
-    public bool DeleteBook(int id)
+    public async Task<bool> DeleteBook(int id)
     {
-        var book = GetBookById(id);
+        var book = await GetBookById(id);
 
         if (book == null)
         {
@@ -60,7 +60,7 @@ public class BookService : IBookService
         }
 
         _context.Books.Remove(book);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         return true;
     }
