@@ -430,3 +430,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 .idea/
+
+# Database
+*.db
+*.db-shm
+*.db-wal
